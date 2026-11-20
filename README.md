@@ -80,58 +80,35 @@ plt.hist(img_eq.ravel(), 256, range = [0, 256]);
 plt.title('Equalized Histogram')
 
 ```
-
 ```
 
 plt.imshow(img_eq, cmap='gray')
-plt.title('original image')
-plt.show()
-```
-
-```
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Read image
-img = cv2.imread(r"myimage.png")
-
-# Equalize each color channel separately
-b, g, r = cv2.split(img)
-
-b_eq = cv2.equalizeHist(b)
-g_eq = cv2.equalizeHist(g)
-r_eq = cv2.equalizeHist(r)
-
-# Merge equalized channels
-img_eq = cv2.merge((b_eq, g_eq, r_eq))
-
-# Display original and equalized images
-plt.figure(figsize=(12, 10))
-
-plt.subplot(221)
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-plt.title('Original Color Image')
-plt.axis('off')
-
-plt.subplot(222)
-plt.imshow(cv2.cvtColor(img_eq, cv2.COLOR_BGR2RGB))
-plt.title('Equalized Image')
-plt.axis('off')
-
-# Original histogram
-plt.subplot(223)
-plt.hist(img.ravel(), bins=256, range=[0, 256])
 plt.title('Original Image')
-
-plt.subplot(224)
-plt.hist(img_eq.ravel(), bins=256, range=[0, 256])
-plt.title('Histogram Equalized')
-
-plt.tight_layout()
 plt.show()
-
 ```
+```
+img = cv2.imread('myimage.png', cv2.IMREAD_COLOR)
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+img_hsv[:,:,2] = cv2.equalizeHist(img_hsv[:, :, 2])
+img_eq = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
+plt.imshow(img_eq[:,:,::-1]); plt.title('Equalized Image');plt.show()
+```
+```
+plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized');plt.show()
+```
+```
+plt.figure(figsize = (20,10))
+plt.subplot(221); plt.imshow(img[:, :, ::-1]); plt.title('Original Color Image')
+plt.subplot(222); plt.imshow(img_eq[:, :, ::-1]); plt.title('Equalized Image')
+plt.show()
+```
+```
+plt.figure(figsize = [15,4])
+plt.subplot(121); plt.hist(img.ravel(),256,range = [0, 256]); plt.title('Original Image')
+plt.subplot(122); plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized')
+```
+
+
 
 Output:
 ORIGINAL IMAGE:
@@ -148,7 +125,8 @@ Equalised Histogram:
 
 Histogram Equalization of Grayscale Image:
 
-<img width="988" height="501" alt="image" src="https://github.com/user-attachments/assets/59751393-fb72-46be-a429-1d8e8010bf9a" />
+<img width="670" height="251" alt="image" src="https://github.com/user-attachments/assets/89fa8866-fd1c-4014-bf44-c5323dc71518" />
 
 
-<img width="1295" height="540" alt="image" src="https://github.com/user-attachments/assets/f4c91711-ef20-4012-9c0f-2e26307da3c5" />
+<img width="679" height="233" alt="image" src="https://github.com/user-attachments/assets/e370fd1b-f3d5-4e05-a5fb-d4066fb1e461" />
+
